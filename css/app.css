@@ -1,0 +1,11 @@
+#grand-total {
+    font-size: 50px;
+}
+
+#wallet-history {
+    margin-top: 20px;
+}
+
+#wallet-history th, #wallet-history td {
+    text-align: center;
+}
