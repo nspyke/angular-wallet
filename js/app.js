@@ -135,7 +135,6 @@
         vm.wallet = {};
 
         vm.balance = WalletService.getBalance();
-        vm.history = WalletService.getHistory();
 
         vm.walletActions = WalletService.actions;
         vm.wallet.action = vm.walletActions[0];
@@ -163,17 +162,18 @@
 
         vm.reset = function() {
             localStorage.clear();
-            vm.balance = 0;
-            vm.history = [];
+            location.reload();
         }
     }
 
-    function walletHistory() {
+    function WalletHistory(WalletService) {
         return {
-            restrict: 'EA',
-            template: [
-
-            ].join('')
+            restrict: 'E',
+            templateUrl: 'partial/wallet-history.html',
+            controllerAs: 'whvm',
+            controller: function() {
+                this.history = WalletService.getHistory();
+            }
         }
     }
 
@@ -181,6 +181,6 @@
         .module('app', [])
         .service('WalletService', WalletService)
         .controller('WalletCtrl', WalletCtrl)
-        .directive('walletHistory', walletHistory)
+        .directive('walletHistory', WalletHistory)
     ;
 })();
