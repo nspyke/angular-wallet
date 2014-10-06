@@ -1,0 +1,22 @@
+{
+  "name": "angular-wallet",
+  "version": "0.0.1",
+  "homepage": "https://github.com/nspyke/angular-wallet",
+  "authors": [
+    "Nik Spijkerman <nikspijkerman@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.2.0",
+    "angular": "~1.2.26",
+    "fontawesome": "~4.2.0"
+  }
+}
