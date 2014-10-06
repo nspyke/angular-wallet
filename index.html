@@ -73,6 +73,15 @@
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="js/app.js"></script>
+
+    <!-- START: Files separated for development -->
+    <!--<script src="js/controllers/WalletCtrl.js"></script>-->
+    <!--<script src="js/directives/WalletHistory.js"></script>-->
+    <!--<script src="js/services/WalletService.js"></script>-->
+    <!--<script src="js/app.js"></script>-->
+    <!-- END: Files separated for development -->
+
+    <!-- Production environment -->
+    <script src="dist/app.min.js"></script>
 </body>
 </html>
