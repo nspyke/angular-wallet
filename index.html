@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css"/>
     <link rel="stylesheet" href="css/app.css"/>
 </head>
-<body>
+<body ng-controller="WalletCtrl as vm">
 
     <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
@@ -25,18 +25,18 @@
             <div class="collapse navbar-collapse" id="navbar-items">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">Reset</a></li>
+                    <li><a href="#" ng-click="vm.reset()">Reset</a></li>
                     <li><a href="#">View Source</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="container-fluid" ng-controller="MyWallet">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12 col-sm-offset-2 col-sm-8">
                 <div class="well text-center" id="grand-total">
-                    <i class="fa fa-gbp"></i> 123.10
+                    <i class="fa fa-gbp"></i> {{ vm.balance | currency : '' }}
                 </div>
             </div>
         </div>
@@ -44,12 +44,9 @@
         <div class="row">
             <div class="col-xs-12 col-sm-offset-2 col-sm-8 text-center">
                 <form action="index.html" method="post" class="form-inline" role="form">
-
                     <div class="form-group">
-                        <label class="sr-only" for="input-amount">Amount</label>
-                        <select class="form-control" name="action" id="input-action">
-                            <option value="add">Add</option>
-                            <option value="sub">Subtract</option>
+                        <label class="sr-only" for="input-action">Action</label>
+                        <select class="form-control" id="input-action" ng-model="vm.wallet.action" ng-options="item.label for item in vm.walletActions">
                         </select>
                     </div>
 
@@ -57,10 +54,10 @@
                         <label class="sr-only" for="input-amount">Amount</label>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-gbp"></i></span>
-                            <input type="text" class="form-control" id="input-amount" placeholder="Amount">
+                            <input type="text" class="form-control" id="input-amount" placeholder="Amount" ng-model="vm.wallet.amount">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-default">Update</button>
+                    <button type="button" ng-click="vm.submit(vm.wallet)" class="btn btn-default">Update</button>
                 </form>
             </div>
         </div>
@@ -74,15 +71,10 @@
                         <th>Withdrawal</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>01/02/2014</td>
-                            <td>£140.00</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>02/02/2014</td>
-                            <td></td>
-                            <td>£16.90</td>
+                        <tr ng-repeat="transaction in vm.history track by $id($index)">
+                            <td>{{ transaction.date | date : 'dd-MMM-yyyy' }}</td>
+                            <td>{{ transaction.deposit && (transaction.amount | currency : '£') || '' }}</td>
+                            <td>{{ transaction.withdrawal && (transaction.amount | currency: '£') || '' }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -90,9 +82,6 @@
         </div>
 
     </div>
-
-
-
 
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
